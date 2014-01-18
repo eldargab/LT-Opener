@@ -35,7 +35,7 @@ setup platform specific command for a given action. For example
 
 This way a standard `open` command for mac is setuped.
 `{{path}}` token will be replaced with the given file system path
-during invokation. Note, that command is not a string, but a list
+during invocation. Note, that command is not a string, but a list
 of command line arguments.
 
 ##Quirks
