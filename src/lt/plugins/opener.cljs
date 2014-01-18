@@ -105,25 +105,38 @@
                              :order 93
                              :click (fn [] (open :terminal (->dir (:path @this))))})))
 
-(defn- or-home [getter] ;; lets just do something instead of complaining
-  (or (getter) (files/home)))
+(defn- or- [& getters] ;; lets just do something instead of messaging for now
+  (->> getters
+       (map #(%))
+       (filter identity)
+       first))
 
 (cmd/command {:command ::open-terminal-in-active-workspace
               :desc "Terminal: Open in active workspace"
               :exec (fn []
-                      (open :terminal (or-home active-workspace-dir)))})
+                      (open :terminal (or- active-workspace-dir
+                                           #(->dir (active-path))
+                                           files/home)))})
 
 (cmd/command {:command ::open-terminal-in-active-dir
               :desc "Terminal: Open in active dir"
               :exec (fn []
-                      (open :terminal (->dir (or-home active-path))))})
+                      (open :terminal (or- #(->dir (active-path))
+                                           active-workspace-dir
+                                           files/home)))})
 
 (cmd/command {:command ::open-active-workspace
               :desc "Explorer: Open active workspace"
               :exec (fn []
-                      (open :open (or-home active-workspace-dir)))})
+                      (open :open (or- active-workspace-dir
+                                       #(->dir (active-path))
+                                       files/home)))})
 
 (cmd/command {:command ::reveal-active-item
               :desc "Explorer: Reveal active item"
               :exec (fn []
-                      (open :reveal (or-home active-path)))})
+                      (open :reveal (or- active-path
+                                         active-workspace-dir
+                                         #(-> @workspace/current-ws :folders first)
+                                         #(-> @workspace/current-ws :files first)
+                                         files/home)))})

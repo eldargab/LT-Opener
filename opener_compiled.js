@@ -20,12 +20,12 @@ goog.require('lt.objs.command');
 
 lt.plugins.opener.spawn = require("child_process").spawn;
 
-lt.plugins.opener.sh = (function sh(p__8670){var vec__8672 = p__8670;var command = cljs.core.nth.call(null,vec__8672,0,null);var args = cljs.core.nthnext.call(null,vec__8672,1);var proc = lt.plugins.opener.spawn.call(null,command,cljs.core.to_array.call(null,args));var stderr = proc.stderr;var stdout = proc.stdout;var err = cljs.core.atom.call(null,"");var out = cljs.core.atom.call(null,"");stderr.setEncoding("utf8");
+lt.plugins.opener.sh = (function sh(p__8460){var vec__8462 = p__8460;var command = cljs.core.nth.call(null,vec__8462,0,null);var args = cljs.core.nthnext.call(null,vec__8462,1);var proc = lt.plugins.opener.spawn.call(null,command,cljs.core.to_array.call(null,args));var stderr = proc.stderr;var stdout = proc.stdout;var err = cljs.core.atom.call(null,"");var out = cljs.core.atom.call(null,"");stderr.setEncoding("utf8");
 stdout.setEncoding("utf8");
-stdout.on("data",(function (s){return cljs.core.swap_BANG_.call(null,out,(function (p1__8668_SHARP_){return [cljs.core.str(p1__8668_SHARP_),cljs.core.str(s)].join('');
+stdout.on("data",(function (s){return cljs.core.swap_BANG_.call(null,out,(function (p1__8458_SHARP_){return [cljs.core.str(p1__8458_SHARP_),cljs.core.str(s)].join('');
 }));
 }));
-stderr.on("data",(function (s){return cljs.core.swap_BANG_.call(null,err,(function (p1__8669_SHARP_){return [cljs.core.str(p1__8669_SHARP_),cljs.core.str(s)].join('');
+stderr.on("data",(function (s){return cljs.core.swap_BANG_.call(null,err,(function (p1__8459_SHARP_){return [cljs.core.str(p1__8459_SHARP_),cljs.core.str(s)].join('');
 }));
 }));
 proc.on("error",(function (){return null;
@@ -44,14 +44,14 @@ if(cljs.core.seq.call(null,cljs.core.deref.call(null,out)))
 
 lt.object.object_STAR_.call(null,new cljs.core.Keyword("lt.plugins.opener","settings","lt.plugins.opener/settings",720243174),new cljs.core.Keyword(null,"tags","tags",1017456523),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("lt.plugins.opener","settings","lt.plugins.opener/settings",720243174),null], null), null),new cljs.core.Keyword(null,"terminal","terminal",4127622638),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"open","open",1017321916),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"reveal","reveal",4374518591),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"platform","platform",2888588261),lt.objs.platform.platform);
 
-lt.plugins.opener.__BEH__set_shell_command = (function __BEH__set_shell_command(this$,type,os,command){return lt.object.update_BANG_.call(null,this$,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [type], null),(function (p1__8673_SHARP_){return cljs.core.assoc.call(null,p1__8673_SHARP_,os,command);
+lt.plugins.opener.__BEH__set_shell_command = (function __BEH__set_shell_command(this$,type,os,command){return lt.object.update_BANG_.call(null,this$,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [type], null),(function (p1__8463_SHARP_){return cljs.core.assoc.call(null,p1__8463_SHARP_,os,command);
 }));
 });
 lt.object.behavior_STAR_.call(null,new cljs.core.Keyword("lt.plugins.opener","set-shell-command","lt.plugins.opener/set-shell-command",2986662918),new cljs.core.Keyword(null,"reaction","reaction",4441361819),lt.plugins.opener.__BEH__set_shell_command,new cljs.core.Keyword(null,"desc","desc",1016984067),"Opener plugin: Set platform specific shell command for a given action",new cljs.core.Keyword(null,"params","params",4313443576),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"label","label",1116631654),"Command type",new cljs.core.Keyword(null,"type","type",1017479852),new cljs.core.Keyword(null,"keyword","keyword",4494463323),new cljs.core.Keyword(null,"items","items",1114430258),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"terminal","terminal",4127622638),new cljs.core.Keyword(null,"open","open",1017321916),new cljs.core.Keyword(null,"reveal","reveal",4374518591)], null)], null),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"label","label",1116631654),"platform",new cljs.core.Keyword(null,"type","type",1017479852),new cljs.core.Keyword(null,"keyword","keyword",4494463323),new cljs.core.Keyword(null,"items","items",1114430258),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"windows","windows",2363397621),new cljs.core.Keyword(null,"linux","linux",1116882022),new cljs.core.Keyword(null,"mac","mac",1014012097)], null)], null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"label","label",1116631654),"command (as a list of args, not a string)",new cljs.core.Keyword(null,"type","type",1017479852),new cljs.core.Keyword(null,"list","list",1017226256)], null)], null),new cljs.core.Keyword(null,"triggers","triggers",2516997421),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"object.instant","object.instant",773332388),null], null), null),new cljs.core.Keyword(null,"for","for",1014005819),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword("lt.plugins.opener","settings","lt.plugins.opener/settings",720243174),null], null), null));
 
 lt.plugins.opener.settings = lt.object.create.call(null,new cljs.core.Keyword("lt.plugins.opener","settings","lt.plugins.opener/settings",720243174));
 
-lt.plugins.opener.__GT_command = (function __GT_command(type,path){return cljs.core.map.call(null,(function (p1__8674_SHARP_){return clojure.string.replace.call(null,p1__8674_SHARP_,"{{path}}",path);
+lt.plugins.opener.__GT_command = (function __GT_command(type,path){return cljs.core.map.call(null,(function (p1__8464_SHARP_){return clojure.string.replace.call(null,p1__8464_SHARP_,"{{path}}",path);
 }),lt.objs.platform.platform.call(null,type.call(null,cljs.core.deref.call(null,lt.plugins.opener.settings))));
 });
 
@@ -85,7 +85,7 @@ lt.plugins.opener.active_workspace_dir = (function active_workspace_dir(){return
 {return cljs.core.first.call(null,dirs);
 } else
 {var temp__4090__auto__ = lt.plugins.opener.active_path.call(null);if(cljs.core.truth_(temp__4090__auto__))
-{var path = temp__4090__auto__;return cljs.core.first.call(null,cljs.core.filter.call(null,(function (p1__8675_SHARP_){return path.startsWith(p1__8675_SHARP_);
+{var path = temp__4090__auto__;return cljs.core.first.call(null,cljs.core.filter.call(null,(function (p1__8465_SHARP_){return path.startsWith(p1__8465_SHARP_);
 }),dirs));
 } else
 {return null;
@@ -112,23 +112,42 @@ lt.plugins.opener.__BEH__add_menu_items = (function __BEH__add_menu_items(this$,
 });
 lt.object.behavior_STAR_.call(null,new cljs.core.Keyword("lt.plugins.opener","add-menu-items","lt.plugins.opener/add-menu-items",1598120963),new cljs.core.Keyword(null,"reaction","reaction",4441361819),lt.plugins.opener.__BEH__add_menu_items,new cljs.core.Keyword(null,"desc","desc",1016984067),"Opener plugin: Add menu items",new cljs.core.Keyword(null,"triggers","triggers",2516997421),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"menu-items","menu-items",3782623556),null], null), null),new cljs.core.Keyword(null,"for","for",1014005819),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"tree-item","tree-item",999403348),null], null), null));
 
-lt.plugins.opener.or_home = (function or_home(getter){var or__6741__auto__ = getter.call(null);if(cljs.core.truth_(or__6741__auto__))
-{return or__6741__auto__;
-} else
-{return lt.objs.files.home.call(null);
-}
+/**
+* @param {...*} var_args
+*/
+lt.plugins.opener.or_ = (function() { 
+var or___delegate = function (getters){return cljs.core.first.call(null,cljs.core.filter.call(null,cljs.core.identity,cljs.core.map.call(null,(function (p1__8466_SHARP_){return p1__8466_SHARP_.call(null);
+}),getters)));
+};
+var or_ = function (var_args){
+var getters = null;if (arguments.length > 0) {
+  getters = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0),0);} 
+return or___delegate.call(this,getters);};
+or_.cljs$lang$maxFixedArity = 0;
+or_.cljs$lang$applyTo = (function (arglist__8467){
+var getters = cljs.core.seq(arglist__8467);
+return or___delegate(getters);
 });
+or_.cljs$core$IFn$_invoke$arity$variadic = or___delegate;
+return or_;
+})()
+;
 
-lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-terminal-in-active-workspace","lt.plugins.opener/open-terminal-in-active-workspace",3652400249),new cljs.core.Keyword(null,"desc","desc",1016984067),"Terminal: Open in active workspace",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"terminal","terminal",4127622638),lt.plugins.opener.or_home.call(null,lt.plugins.opener.active_workspace_dir));
+lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-terminal-in-active-workspace","lt.plugins.opener/open-terminal-in-active-workspace",3652400249),new cljs.core.Keyword(null,"desc","desc",1016984067),"Terminal: Open in active workspace",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"terminal","terminal",4127622638),lt.plugins.opener.or_.call(null,lt.plugins.opener.active_workspace_dir,(function (){return lt.plugins.opener.__GT_dir.call(null,lt.plugins.opener.active_path.call(null));
+}),lt.objs.files.home));
 })], null));
 
-lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-terminal-in-active-dir","lt.plugins.opener/open-terminal-in-active-dir",3260467649),new cljs.core.Keyword(null,"desc","desc",1016984067),"Terminal: Open in active dir",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"terminal","terminal",4127622638),lt.plugins.opener.__GT_dir.call(null,lt.plugins.opener.or_home.call(null,lt.plugins.opener.active_path)));
+lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-terminal-in-active-dir","lt.plugins.opener/open-terminal-in-active-dir",3260467649),new cljs.core.Keyword(null,"desc","desc",1016984067),"Terminal: Open in active dir",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"terminal","terminal",4127622638),lt.plugins.opener.or_.call(null,(function (){return lt.plugins.opener.__GT_dir.call(null,lt.plugins.opener.active_path.call(null));
+}),lt.plugins.opener.active_workspace_dir,lt.objs.files.home));
 })], null));
 
-lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-active-workspace","lt.plugins.opener/open-active-workspace",1221266040),new cljs.core.Keyword(null,"desc","desc",1016984067),"Explorer: Open active workspace",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"open","open",1017321916),lt.plugins.opener.or_home.call(null,lt.plugins.opener.active_workspace_dir));
+lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","open-active-workspace","lt.plugins.opener/open-active-workspace",1221266040),new cljs.core.Keyword(null,"desc","desc",1016984067),"Explorer: Open active workspace",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"open","open",1017321916),lt.plugins.opener.or_.call(null,lt.plugins.opener.active_workspace_dir,(function (){return lt.plugins.opener.__GT_dir.call(null,lt.plugins.opener.active_path.call(null));
+}),lt.objs.files.home));
 })], null));
 
-lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","reveal-active-item","lt.plugins.opener/reveal-active-item",3930885935),new cljs.core.Keyword(null,"desc","desc",1016984067),"Explorer: Reveal active item",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"reveal","reveal",4374518591),lt.plugins.opener.or_home.call(null,lt.plugins.opener.active_path));
+lt.objs.command.command.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"command","command",1964298941),new cljs.core.Keyword("lt.plugins.opener","reveal-active-item","lt.plugins.opener/reveal-active-item",3930885935),new cljs.core.Keyword(null,"desc","desc",1016984067),"Explorer: Reveal active item",new cljs.core.Keyword(null,"exec","exec",1017031683),(function (){return lt.plugins.opener.open.call(null,new cljs.core.Keyword(null,"reveal","reveal",4374518591),lt.plugins.opener.or_.call(null,lt.plugins.opener.active_path,lt.plugins.opener.active_workspace_dir,(function (){return cljs.core.first.call(null,new cljs.core.Keyword(null,"folders","folders",4625622327).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,lt.objs.workspace.current_ws)));
+}),(function (){return cljs.core.first.call(null,new cljs.core.Keyword(null,"files","files",1111338473).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,lt.objs.workspace.current_ws)));
+}),lt.objs.files.home));
 })], null));
 
 }
