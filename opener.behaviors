@@ -1,0 +1,8 @@
+{:+ {:app [(:lt.objs.plugins/load-js "opener_compiled.js" true)]
+     :lt.plugins.opener/settings
+     [(:lt.plugins.opener/set-terminal :mac ["osascript"
+                                             "-e" "tell application \"Terminal\""
+                                             "-e"   "do script \"cd '{{path}}'; clear\""
+                                             "-e"   "activate window frontmost"
+                                             "-e" "end tell"])
+      (:lt.plugins.opener/set-open :mac ["open" "{{path}}"])]}}
