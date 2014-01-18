@@ -101,7 +101,7 @@
                             {:label "Reveal"
                              :order 92
                              :click (fn [] (open :reveal (:path @this)))}
-                            {:label "Terminal here"
+                            {:label "Open Terminal here"
                              :order 93
                              :click (fn [] (open :terminal (->dir (:path @this))))})))
 
