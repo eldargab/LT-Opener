@@ -24,42 +24,31 @@
     (.on proc "error" (fn []))
     (.on proc "close" (fn [code]
                         (when (seq @err)
-                          (console/error (str "Opener: " @err)))
+                          (console/error (str "Opener plugin: " @err)))
                         (when (seq @out)
-                          (.log js/console @out))))))
+                          (.log js/console (str "Opener plugin: " @out)))))))
 
 (object/object* ::settings
                 :tags #{::settings}
                 :terminal {}
                 :open {}
+                :reveal {}
                 :platform platform)
 
-(defn set-shell-command! [this type os command]
-  (object/update! this [type] #(assoc % os command)))
-
-(behavior ::set-terminal
+(behavior ::set-shell-command
           :for #{::settings}
           :triggers #{:object.instant}
-          :desc "Opener plugin: Set platform specific shell command to start Terminal"
-          :params [{:label "platform"
-                    :type :string
+          :desc "Opener plugin: Set platform specific shell command for type of action"
+          :params [{:label "Command type"
+                    :type :keyword
+                    :items [:terminal :open :reveal]}
+                   {:label "platform"
+                    :type :keyword
                     :items [:windows :linux :mac]}
                    {:label "command (as a list of args, not a string)"
                     :type :list}]
-          :reaction (fn [this os cmd]
-                      (set-shell-command! this :terminal os cmd)))
-
-(behavior ::set-open
-          :for #{::settings}
-          :triggers #{:object.instant}
-          :desc "Opener plugin: Set platform specific Open command"
-          :params [{:label "platform"
-                    :type :string
-                    :items [:windows :linux :mac]}
-                   {:label "command (as a list of args, not a string)"
-                    :type :list}]
-          :reaction (fn [this os cmd]
-                      (set-shell-command! this :open os cmd)))
+          :reaction (fn [this type os command]
+                      (object/update! this [type] #(assoc % os command))))
 
 (def settings (object/create ::settings))
 
@@ -68,7 +57,7 @@
        (map #(string/replace % "{{path}}" path))))
 
 (defn open [type path]
-  (if-let [command (seq (->command type (if (seq path) path (files/home))))]
+  (if-let [command (seq (->command type path))]
     (sh command)
     (console/error (str "Opener plugin: Shell command " type " is not setuped for your platform " (:platform @settings)))))
 
@@ -80,7 +69,8 @@
 (defn active-path []
   (empty->nil
    (if-let [tab (tabs/active-tab)]
-     (tabs/->path tab))))
+     (or (-> @tab :info :path) ;; just (tabs/->path tab) fails some times
+         (-> @tab :path)))))
 
 (defn active-workspace-dir []
   "Our definition of what the term 'workspace directory' means"
@@ -97,22 +87,43 @@
       path
       (files/parent path))))
 
+(behavior ::add-menu-items
+          :triggers #{:menu-items}
+          :for #{:tree-item}
+          :desc "Opener plugin: Add menu items"
+          :reaction (fn [this items]
+                      (conj items
+                            {:type "separator"
+                             :order 90}
+                            {:label "Open"
+                             :order 91
+                             :click (fn [] (open :open (:path @this)))}
+                            {:label "Reveal"
+                             :order 92
+                             :click (fn [] (open :reveal (:path @this)))}
+                            {:label "Terminal here"
+                             :order 93
+                             :click (fn [] (open :terminal (->dir (:path @this))))})))
+
+(defn- or-home [getter] ;; lets just do something instead of complaining
+  (or (getter) (files/home)))
+
 (cmd/command {:command ::open-terminal-in-active-workspace
               :desc "Terminal: Open in active workspace"
               :exec (fn []
-                      (open :terminal (active-workspace-dir)))})
+                      (open :terminal (or-home active-workspace-dir)))})
 
 (cmd/command {:command ::open-terminal-in-active-dir
               :desc "Terminal: Open in active dir"
               :exec (fn []
-                      (open :terminal (->dir (active-path))))})
+                      (open :terminal (->dir (or-home active-path))))})
 
 (cmd/command {:command ::open-active-workspace-dir
               :desc "Open active workspace dir"
               :exec (fn []
-                      (open :open (active-workspace-dir)))})
+                      (open :open (or-home active-workspace-dir)))})
 
-(cmd/command {:command ::open-terminal-in-active-dir
-              :desc "Open active dir"
+(cmd/command {:command ::reveal-active-item
+              :desc "Reveal active item"
               :exec (fn []
-                      (open :open (->dir (active-path))))})
+                      (open :reveal (or-home active-path)))})
