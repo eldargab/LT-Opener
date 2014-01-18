@@ -38,7 +38,7 @@
 (behavior ::set-shell-command
           :for #{::settings}
           :triggers #{:object.instant}
-          :desc "Opener plugin: Set platform specific shell command for type of action"
+          :desc "Opener plugin: Set platform specific shell command for a given action"
           :params [{:label "Command type"
                     :type :keyword
                     :items [:terminal :open :reveal]}
@@ -78,7 +78,7 @@
    (let [dirs (:folders @workspace/current-ws)]
      (if-not (seq (next dirs))
        (first dirs)
-       (let [path (active-path)]
+       (if-let [path (active-path)]
          (first (filter #(.startsWith path %) dirs)))))))
 
 (defn ->dir [path]
@@ -118,12 +118,12 @@
               :exec (fn []
                       (open :terminal (->dir (or-home active-path))))})
 
-(cmd/command {:command ::open-active-workspace-dir
-              :desc "Open active workspace dir"
+(cmd/command {:command ::open-active-workspace
+              :desc "Explorer: Open active workspace"
               :exec (fn []
                       (open :open (or-home active-workspace-dir)))})
 
 (cmd/command {:command ::reveal-active-item
-              :desc "Reveal active item"
+              :desc "Explorer: Reveal active item"
               :exec (fn []
                       (open :reveal (or-home active-path)))})
