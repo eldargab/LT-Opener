@@ -46,9 +46,9 @@ For example:
 ```Clojure
 
 {:app {;; add active file to git with Alt+s
-       "alt-s" [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}
+       "alt-s" [(:lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}
        ;; Platform indirection is also supported
-       "alt-w" [(lt.plugins.opener/shell :active-workspace-dir :open)]}
+       "alt-w" [(:lt.plugins.opener/shell :active-workspace-dir :open)]}
 ```
 
 ##Quirks
