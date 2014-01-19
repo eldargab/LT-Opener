@@ -1,7 +1,5 @@
 #Opener
 
-Native OS open-reveal functionality for LightTable.
-
 ![Screenshot](http://snag.gy/fAV7T.jpg)
 
 It also presents a notion of "Active item" and can be used
@@ -47,9 +45,8 @@ For example:
 
 ```Clojure
 
-{:app {"alt-s" ;; add active file to git with Alt+s
-       [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}
-
+{:app {;; add active file to git with Alt+s
+       "alt-s" [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}
        ;; Platform indirection is also supported
        "alt-w" [(lt.plugins.opener/shell :active-workspace-dir :open)]}
 ```
