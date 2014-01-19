@@ -52,12 +52,13 @@
 
 (def settings (object/create ::settings))
 
-(defn ->command [type path]
-  (->> (-> @settings type platform)
-       (map #(string/replace % "{{path}}" path))))
+(defn set-path [command path]
+  (map #(string/replace % "{{path}}" path) command))
 
 (defn open [type path]
-  (if-let [command (seq (->command type path))]
+  (if-let [command (-> (if (keyword? type) (-> @settings type platform) type)
+                       (set-path path)
+                       (seq))]
     (sh command)
     (console/error (str "Opener plugin: Shell command " type " is not setuped for your platform " (:platform @settings)))))
 
@@ -66,7 +67,7 @@
     str
     nil))
 
-(defn active-path []
+(defn active-item []
   (empty->nil
    (if-let [tab (tabs/active-tab)]
      (or (-> @tab :info :path) ;; just (tabs/->path tab) fails some times
@@ -78,7 +79,7 @@
    (let [dirs (:folders @workspace/current-ws)]
      (if-not (seq (next dirs))
        (first dirs)
-       (if-let [path (active-path)]
+       (if-let [path (active-item)]
          (first (filter #(.startsWith path %) dirs)))))))
 
 (defn ->dir [path]
@@ -105,7 +106,8 @@
                              :order 93
                              :click (fn [] (open :terminal (->dir (:path @this))))})))
 
-(defn- or- [& getters] ;; lets just do something instead of messaging for now
+ ;; Sometimes it's better just to do something instead of yielding an error
+(defn- or- [& getters]
   (->> getters
        (map #(%))
        (filter identity)
@@ -115,13 +117,13 @@
               :desc "Terminal: Open in active workspace"
               :exec (fn []
                       (open :terminal (or- active-workspace-dir
-                                           #(->dir (active-path))
+                                           #(->dir (active-item))
                                            files/home)))})
 
 (cmd/command {:command ::open-terminal-in-active-dir
               :desc "Terminal: Open in active dir"
               :exec (fn []
-                      (open :terminal (or- #(->dir (active-path))
+                      (open :terminal (or- #(->dir (active-item))
                                            active-workspace-dir
                                            files/home)))})
 
@@ -129,14 +131,27 @@
               :desc "Explorer: Open active workspace"
               :exec (fn []
                       (open :open (or- active-workspace-dir
-                                       #(->dir (active-path))
+                                       #(->dir (active-item))
                                        files/home)))})
 
 (cmd/command {:command ::reveal-active-item
               :desc "Explorer: Reveal active item"
               :exec (fn []
-                      (open :reveal (or- active-path
+                      (open :reveal (or- active-item
                                          active-workspace-dir
                                          #(-> @workspace/current-ws :folders first)
                                          #(-> @workspace/current-ws :files first)
                                          files/home)))})
+
+(cmd/command {:command ::shell
+              :desc "Run shell command againts active item (#item #command)"
+              :hidden true
+              :exec (fn [item command]
+                      (let [path (condp = item
+                                   :active-workspace-dir (active-workspace-dir)
+                                   :active-dir (->dir (active-item))
+                                   :active-item (active-item)
+                                   nil)]
+                        (if path
+                          (open command path)
+                          (console/error (str "Opener plugin: Can't determine path for " item)))))})

@@ -4,6 +4,9 @@ Native OS open-reveal functionality for LightTable.
 
 ![Screenshot](http://snag.gy/fAV7T.jpg)
 
+It also presents a notion of "Active item" and can be used
+to run arbitrary shell commands againts it.
+
 ##Usage
 
 Besides the above menu the following commands are available
@@ -12,13 +15,15 @@ Besides the above menu the following commands are available
   * Terminal: Open in active dir `:lt.plugins.opener/open-terminal-in-active-dir`
   * Explorer: Open active workspace `:lt.plugins.opener/open-active-workspace`
   * Explorer: Reveal active item `:lt.plugins.opener/reveal-active-item`
+  * Run shell command againts active item (#item-type #command) (hidden) `:lt.plugins.opener/shell`
 
-Active workspace means either:
+where
 
-  1. Folder of the current workspace (if there is only one such)
-  2. Folder of the current workspace that is also a parent of the currently opened file
-
-No shortcuts are assigned by default.
+  * `Active item` - is what is opened in the currently active tab
+  * `Active dir` - the dir of the active item (if file) or active item itself
+  * `Active workspace dir` - folder from the current workspace that is also a parent
+  of active item. If there is only one folder in workspace that one will be returned
+  regardless of the active item.
 
 ##Customization
 
@@ -33,10 +38,17 @@ setup platform specific command for a given action. For example
        ["open" "{{path}}"])]}}
 ```
 
-This way a standard `open` command for mac is setuped.
 `{{path}}` token will be replaced with the given file system path
-during invocation. Note, that command is not a string, but a list
+during invocation. Note, that a command is not a string, but a list
 of command line arguments.
+
+Use `:lt.plugins.opener/shell` for shortcuting arbitrary shell command.
+For example:
+
+```Clojure
+;; add active file to git with Alt+s
+{:app {"alt-s" [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}}
+```
 
 ##Quirks
 
