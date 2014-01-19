@@ -22,7 +22,7 @@ where
   * `Active item` - is what is opened in the currently active tab
   * `Active dir` - the dir of the active item (if file) or active item itself
   * `Active workspace dir` - folder from the current workspace that is also a parent
-  of active item. If there is only one folder in workspace that one will be returned
+  of the active item. If there is only one folder, that one will be returned
   regardless of the active item.
 
 ##Customization
@@ -46,19 +46,23 @@ Use `:lt.plugins.opener/shell` for shortcuting arbitrary shell command.
 For example:
 
 ```Clojure
-;; add active file to git with Alt+s
-{:app {"alt-s" [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}}
+
+{:app {"alt-s" ;; add active file to git with Alt+s
+       [(lt.plugins.opener/shell :active-item ["git" "add" "{{path}}"])]}
+
+       ;; Platform indirection is also supported
+       "alt-w" [(lt.plugins.opener/shell :active-workspace-dir :open)]}
 ```
 
 ##Quirks
 
-Currently only commands for mac are provided out of the box.
+Currently only commands for OS X are provided out of the box.
 Pull requests with plausible defaults for other platforms are welcome.
 
-OS X `Open Terminal` command can be better. Currently it
+`Open Terminal` for OS X could be better. Currently it
 brings all terminal windows to front. Although Alt+Tabbing
 with utilities like [Witch](http://manytricks.com/witch/)
-works as expected, you probably want to see only one window
+works as expected, you probably would want to see only one window
 in such case. If you know how to achive this, please tell.
 
 
