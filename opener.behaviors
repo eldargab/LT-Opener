@@ -15,9 +15,24 @@
        :mac
        ["open" "{{path}}"])
 
-       (:lt.plugins.opener/set-shell-command
+      (:lt.plugins.opener/set-shell-command
        :reveal
        :mac
-       ["open" "-R" "{{path}}"])]
+       ["open" "-R" "{{path}}"])
+
+      (:lt.plugins.opener/set-shell-command
+       :terminal
+       :linux
+       ["gnome-terminal" "--working-directory" "{{path}}"])
+
+      (:lt.plugins.opener/set-shell-command
+       :open
+       :linux
+       ["nautilus" "{{path}}"])
+
+      (:lt.plugins.opener/set-shell-command
+       :reveal
+       :linux
+       ["xdg-open" "{{path}}"])]
 
      :tree-item [:lt.plugins.opener/add-menu-items]}}
