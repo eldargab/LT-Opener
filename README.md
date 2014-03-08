@@ -56,13 +56,6 @@ For example:
 Currently only commands for OS X are provided out of the box.
 Pull requests with plausible defaults for other platforms are welcome.
 
-`Open Terminal` for OS X could be better. Currently it
-brings all terminal windows to front. Although Alt+Tabbing
-with utilities like [Witch](http://manytricks.com/witch/)
-works as expected, you probably would want to see only one window
-in such case. If you know how to achive this, please tell.
-
-
 ##Installation
 
 Available in the central plugin repository.

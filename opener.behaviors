@@ -4,11 +4,7 @@
       (:lt.plugins.opener/set-shell-command
        :terminal
        :mac
-       ["osascript"
-        "-e" "tell application \"Terminal\""
-        "-e"   "do script \"cd '{{path}}'; clear\""
-        "-e"   "activate window frontmost"
-        "-e" "end tell"])
+       ["open" "{{path}}" "-a" "Terminal.app"])
 
       (:lt.plugins.opener/set-shell-command
        :open
