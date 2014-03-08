@@ -24,11 +24,11 @@
       (:lt.plugins.opener/set-shell-command
        :open
        :linux
-       ["nautilus" "{{path}}"])
+       ["xdg-open" "{{path}}"])
 
       (:lt.plugins.opener/set-shell-command
        :reveal
        :linux
-       ["xdg-open" "{{path}}"])]
+       ["nautilus" "{{path}}"])]
 
      :tree-item [:lt.plugins.opener/add-menu-items]}}
