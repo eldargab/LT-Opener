@@ -29,11 +29,12 @@ Use `:lt.plugins.opener/set-shell-command` behavior to
 setup platform specific command for a given action. For example
 
 ```clojure
+;; set the terminal to iTerm
 {:+ {:lt.plugins.opener/settings
      [(:lt.plugins.opener/set-shell-command
-       :open
+       :terminal
        :mac
-       ["open" "{{path}}"])]}}
+       ["open" "{{path}}" "-a" "iTerm"])]}}
 ```
 
 `{{path}}` token will be replaced with the given file system path
@@ -53,8 +54,11 @@ For example:
 
 ##Quirks
 
-Currently only commands for OS X are provided out of the box.
-Pull requests with plausible defaults for other platforms are welcome.
+Commands for windows are not provided. PR's are welcome.
+
+On linuxes we do not have cross platform tools to do the job.
+By default we use `xdg-open(1)` for opening, `nautilus`
+for revealing and `gnome-terminal` as a terminal.
 
 ##Installation
 
