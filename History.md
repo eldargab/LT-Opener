@@ -1,4 +1,10 @@
 
+0.2.0 / 2014-03-08
+==================
+
+ * simplify and improve open terminal command on mac
+ * add default shell commands for linux
+
 0.1.0 / 2014-01-19
 ==================
 

@@ -1,8 +1,8 @@
 {
   "name": "Opener",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Eldar Gabdullin",
   "source": "https://github.com/eldargab/LT-Opener",
-  "desc": "Helps to open dirs, files and start a Terminal",
+  "desc": "Helps to open dirs, files, run shell commands and start a Terminal",
   "behaviors": "opener.behaviors"
 }
