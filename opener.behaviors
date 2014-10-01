@@ -18,6 +18,23 @@
 
       (:lt.plugins.opener/set-shell-command
        :terminal
+       :windows
+       ["cmd" "/C" "start" "cmd" "/K" "cd" "/D" "{{path}}"])
+
+      (:lt.plugins.opener/set-shell-command
+       :open
+       :windows
+       ["explorer" "{{path}}"])
+
+      ;; Use hack with CMD and FOR loop to wrap {{path}} into double quotes
+      (:lt.plugins.opener/set-shell-command
+       :reveal
+       :windows
+       ["cmd" "/C" "FOR" "%F" "in" "(" "{{path}}" ")"
+        "do" "@explorer" "/select,%F"])
+
+      (:lt.plugins.opener/set-shell-command
+       :terminal
        :linux
        ["gnome-terminal" "--working-directory" "{{path}}"])
 
