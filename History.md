@@ -1,4 +1,9 @@
 
+0.3.0 / 2014-10-12
+==================
+
+ * Open, reveal and terminal commands for Windows.
+
 0.2.0 / 2014-03-08
 ==================
 

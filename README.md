@@ -54,8 +54,6 @@ For example:
 
 ##Quirks
 
-Commands for windows are not provided. PR's are welcome.
-
 On linuxes we do not have cross platform tools to do the job.
 By default we use `xdg-open(1)` for opening, `nautilus`
 for revealing and `gnome-terminal` as a terminal.
